@@ -9,7 +9,6 @@ function App() {
     <div className="App">
       <p className="App-header">
         <h1>Fanny and AJ's Bizarre Mock Adventure</h1>
-        <label>mode:</label>
       </p>
       <REPL />      
     </div>
