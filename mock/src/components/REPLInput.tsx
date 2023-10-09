@@ -19,6 +19,7 @@ export function REPLInput(props : REPLInputProps) {
     // Manages the current amount of times the button is clicked
     const [count, setCount] = useState<number>(0);
     // manage the mode??? 
+    const [file, setFile] = useState<String>("");
 
     
     // This function is triggered when the button is clicked.
@@ -33,6 +34,11 @@ export function REPLInput(props : REPLInputProps) {
        }
        if ((commandString == "mode") && (props.mode == "verbose")){
          props.setMode("brief")
+       }
+       const strArr = commandString.split(" ")
+       if (strArr[0] == "load_csv"){
+        setFile(strArr[1])
+        console.log(file)
        }
     }
     /**
