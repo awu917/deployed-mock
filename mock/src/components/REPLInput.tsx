@@ -7,6 +7,8 @@ interface REPLInputProps{
   // CHANGED
   history: string[],
   setHistory: Dispatch<SetStateAction<string[]>>,
+  mode: String,
+  setMode: Dispatch<SetStateAction<String>>
 }
 // You can use a custom interface or explicit fields or both! An alternative to the current function header might be:
 // REPLInput(history: string[], setHistory: Dispatch<SetStateAction<string[]>>)
@@ -16,13 +18,22 @@ export function REPLInput(props : REPLInputProps) {
     const [commandString, setCommandString] = useState<string>('');
     // Manages the current amount of times the button is clicked
     const [count, setCount] = useState<number>(0);
+    // manage the mode??? 
+
     
     // This function is triggered when the button is clicked.
     function handleSubmit(commandString:string) {
       setCount(count+1)
       // CHANGED
       props.setHistory([...props.history, commandString])
+      props.setMode(props.mode)
       setCommandString('')
+       if ((commandString == "mode") && (props.mode == "brief")){
+         props.setMode("verbose")
+       }
+       if ((commandString == "mode") && (props.mode == "verbose")){
+         props.setMode("brief")
+       }
     }
     /**
      * We suggest breaking down this component into smaller components, think about the individual pieces 
@@ -37,6 +48,8 @@ export function REPLInput(props : REPLInputProps) {
             <fieldset>
               <legend>Enter a command:</legend>
               <ControlledInput value={commandString} setValue={setCommandString} ariaLabel={"Command input"}/>
+              <label>mode: {props.mode}</label>
+               
             </fieldset>
             {/* TODO: Currently this button just counts up, can we make it push the contents of the input box to the history?*/}
             <button onClick={() => handleSubmit(commandString)}>Submitted {count} times</button>
