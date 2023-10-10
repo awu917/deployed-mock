@@ -7,7 +7,10 @@ interface REPLHistoryProps{
     // CHANGED
     history: string[],
     mode: String,
-    setMode: Dispatch<SetStateAction<String>>
+    setMode: Dispatch<SetStateAction<String>>,
+    file: String,
+    setFile: Dispatch<SetStateAction<String>>
+
     
 }
 export function REPLHistory(props : REPLHistoryProps) {
@@ -32,6 +35,25 @@ export function REPLHistory(props : REPLHistoryProps) {
             </div>
         );
     } 
+
+    return (
+        <div className="repl-history">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {props.history.map((command, index) => (
+                        <tr key={index}>
+                            <td>{command}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
     return null
 
 }
