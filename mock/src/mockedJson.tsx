@@ -1,5 +1,7 @@
-// hashmap for storing mock filepaths to "datasets"
-let viewHash = new Map<String, String[][]>();
+// hashmaps for storing mock filepaths to "datasets"
+export const viewHash = new Map<String, String[][]>();
+export const testHash = new Map<String, String>();
+testHash.set("fanny","aj")
 viewHash.set("user/data/d20_csv", [["Campaign","Year","DM"],["Fantasy High: Freshman Year",
 "2018", "Brennan Lee Mulligan"], ["The Ravening War","2023","Matthew Mercer"],
 ["Fantasy High: Sophomore Year","2019","Brennan Lee Mulligan"],

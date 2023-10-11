@@ -1,5 +1,6 @@
 import '../styles/main.css';
 import { Dispatch, SetStateAction, useState} from 'react';
+import { viewHash, testHash } from '../mockedJson';
 
 
 interface REPLHistoryProps{
@@ -7,31 +8,60 @@ interface REPLHistoryProps{
     // CHANGED
     history: string[],
     mode: String,
-    setMode: Dispatch<SetStateAction<String>>
+    setMode: Dispatch<SetStateAction<String>>,
+    file: String,
+    setFile: Dispatch<SetStateAction<String>>,
+    view: boolean,
+    setView: Dispatch<SetStateAction<boolean>>
+
+
     
 }
 export function REPLHistory(props : REPLHistoryProps) {
-
-    if (props.mode == "verbose"){
-    return (
-        <div className="repl-history">
-            {/* This is where command history will go */}
-            {/* TODO: To go through all the pushed commands... try the .map() function! */}
-            {/* CHANGED */}
-             {props.history.map((command, index) => <p> command: {command}</p>)}
-        </div>
-    );
+    var fileArr:String[][];
+    fileArr = [[]]
+    if ((props.file !== "") && (props.view)){
+        fileArr = viewHash.get(props.file)!
     }
+    if (props.mode == "verbose"){
+        return (
+            <div className="repl-history">
+                {props.history.map((command, index) => <p> Command: {command} {"\n"} Output: </p>)}
+                    <table>
+                    <tbody>
+                        {fileArr.map((row, rowIndex) => (
+                            <tr key={rowIndex}>
+                                {row.map((cell, cellIndex) => (
+                                    <td key={cellIndex}>{cell}</td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        );
+    }
+
     if (props.mode == "brief"){
         return (
             <div className="repl-history">
-                {/* This is where command history will go */}
-                {/* TODO: To go through all the pushed commands... try the .map() function! */}
-                {/* CHANGED */}
-                {props.history.map((command, index) => <p> {command}</p>)}
+                    <table>
+                    <tbody>
+                        {fileArr.map((row, rowIndex) => (
+                            <tr key={rowIndex}>
+                                {row.map((cell, cellIndex) => (
+                                    <td key={cellIndex}>{cell}</td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         );
-    } 
+    }
+        
     return null
 
-}
+    }
+
+

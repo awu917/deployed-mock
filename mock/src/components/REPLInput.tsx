@@ -8,7 +8,11 @@ interface REPLInputProps{
   history: string[],
   setHistory: Dispatch<SetStateAction<string[]>>,
   mode: String,
-  setMode: Dispatch<SetStateAction<String>>
+  setMode: Dispatch<SetStateAction<String>>,
+  file: String,
+  setFile: Dispatch<SetStateAction<String>>,
+  view: boolean,
+  setView: Dispatch<SetStateAction<boolean>>
 }
 // You can use a custom interface or explicit fields or both! An alternative to the current function header might be:
 // REPLInput(history: string[], setHistory: Dispatch<SetStateAction<string[]>>)
@@ -19,7 +23,8 @@ export function REPLInput(props : REPLInputProps) {
     // Manages the current amount of times the button is clicked
     const [count, setCount] = useState<number>(0);
     // manage the mode??? 
-    const [file, setFile] = useState<String>("");
+    // const [file, setFile] = useState<String>("");
+
 
     
     // This function is triggered when the button is clicked.
@@ -28,6 +33,7 @@ export function REPLInput(props : REPLInputProps) {
       // CHANGED
       props.setHistory([...props.history, commandString])
       props.setMode(props.mode)
+      props.setView(false)
       setCommandString('')
        if ((commandString == "mode") && (props.mode == "brief")){
          props.setMode("verbose")
@@ -37,9 +43,12 @@ export function REPLInput(props : REPLInputProps) {
        }
        const strArr = commandString.split(" ")
        if (strArr[0] == "load_csv"){
-        setFile(strArr[1])
-        console.log(file)
+        props.setFile(strArr[1])
        }
+       if (commandString == "view"){
+        props.setView(true)
+       }
+
     }
     /**
      * We suggest breaking down this component into smaller components, think about the individual pieces 

@@ -46,6 +46,12 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+table, th, td{
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right:auto;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
