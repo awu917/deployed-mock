@@ -10,7 +10,9 @@ interface REPLInputProps{
   mode: String,
   setMode: Dispatch<SetStateAction<String>>,
   file: String,
-  setFile: Dispatch<SetStateAction<String>>
+  setFile: Dispatch<SetStateAction<String>>,
+  view: boolean,
+  setView: Dispatch<SetStateAction<boolean>>
 }
 // You can use a custom interface or explicit fields or both! An alternative to the current function header might be:
 // REPLInput(history: string[], setHistory: Dispatch<SetStateAction<string[]>>)
@@ -31,6 +33,7 @@ export function REPLInput(props : REPLInputProps) {
       // CHANGED
       props.setHistory([...props.history, commandString])
       props.setMode(props.mode)
+      props.setView(false)
       setCommandString('')
        if ((commandString == "mode") && (props.mode == "brief")){
          props.setMode("verbose")
@@ -41,7 +44,9 @@ export function REPLInput(props : REPLInputProps) {
        const strArr = commandString.split(" ")
        if (strArr[0] == "load_csv"){
         props.setFile(strArr[1])
-        console.log(props.file)
+       }
+       if (commandString == "view"){
+        props.setView(true)
        }
 
     }
