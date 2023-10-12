@@ -19,16 +19,19 @@ export default function REPL() {
   const [mode, setMode] = useState<String>("brief")
   const [file, setFile] = useState<String>("");
   const [view, setView] = useState<boolean>(false);
+  const [search, setSearch] = useState<boolean>(false);
 
   return (
     <div className="repl">  
       {/*This is where your REPLHistory might go... You also may choose to add it within your REPLInput 
       component or somewhere else depending on your component organization. What are the pros and cons of each? */}
       {/* CHANGED */}
-      <REPLHistory history={history} mode={mode} setMode={setMode} file={file} setFile={setFile} view={view} setView={setView}/>
+      <REPLHistory history={history} mode={mode} setMode={setMode} file={file} setFile={setFile} view={view} setView={setView} search={search} 
+      setSearch={setSearch}/>
       <hr></hr>
       {/* CHANGED */}
-      <REPLInput history={history} setHistory={setHistory} mode={mode} setMode={setMode} file={file} setFile={setFile} view={view} setView={setView}/>
+      <REPLInput history={history} setHistory={setHistory} mode={mode} setMode={setMode} file={file} setFile={setFile} view={view} setView={setView} 
+      search={search} setSearch={setSearch}/>
     </div>
   );
 }
