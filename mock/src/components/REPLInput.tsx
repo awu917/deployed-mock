@@ -11,6 +11,8 @@ interface REPLInputProps {
   setMode: Dispatch<SetStateAction<String>>;
   file: String;
   setFile: Dispatch<SetStateAction<String>>;
+  load: boolean;
+  setLoad: Dispatch<SetStateAction<boolean>>;
   view: boolean;
   setView: Dispatch<SetStateAction<boolean>>;
   search: boolean;
@@ -33,6 +35,7 @@ export function REPLInput(props: REPLInputProps) {
     // CHANGED
     props.setHistory([...props.history, commandString]);
     props.setMode(props.mode);
+    props.setLoad(false);
     props.setView(false);
     props.setSearch(false);
     setCommandString("");
@@ -45,6 +48,7 @@ export function REPLInput(props: REPLInputProps) {
     const strArr = commandString.split(" ");
     if (strArr[0] == "load_csv") {
       props.setFile(strArr[1]);
+      props.setLoad(true)
     }
     if (commandString == "view") {
       props.setView(true);
