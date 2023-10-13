@@ -11,6 +11,8 @@ interface REPLHistoryProps {
   setMode: Dispatch<SetStateAction<String>>;
   file: String;
   setFile: Dispatch<SetStateAction<String>>;
+  load: boolean;
+  setLoad: Dispatch<SetStateAction<boolean>>;
   view: boolean;
   setView: Dispatch<SetStateAction<boolean>>;
   search: boolean;
@@ -19,11 +21,36 @@ interface REPLHistoryProps {
 export function REPLHistory(props: REPLHistoryProps) {
   var fileArr: String[][];
   fileArr = [[]];
+
   if (props.file !== "" && props.view) {
     fileArr = viewHash.get(props.file)!;
   }
   if (props.file !== "" && props.search) {
     fileArr = searchHash.get(props.file)!;
+  }
+
+  if (props.file == "bad_input" && props.load){
+    return (
+      <div className="repl-history">
+        <p>Error: File not found</p>
+      </div>
+    );
+  }
+
+  if (((props.file == "") || (props.file == "bad_input")) && (props.view)){
+    return (
+      <div className="repl-history">
+        <p>Error: Load a file before attempting to view</p>
+      </div>
+    );
+  }
+
+  if (((props.file == "") || (props.file == "bad_input")) && (props.search)){
+    return (
+      <div className="repl-history">
+        <p>Error: Load a file before attempting to search</p>
+      </div>
+    );
   }
 
   if (props.mode == "verbose") {
